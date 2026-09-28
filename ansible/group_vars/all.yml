@@ -1,0 +1,7 @@
+---
+# Database Credentials & Settings
+db_name: "appdb"
+db_user: "appuser"
+
+# The private IP of the database (localhost)
+db_ip_address: "127.0.0.1"

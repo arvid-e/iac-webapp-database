@@ -1,0 +1,8 @@
+#CREATED AUTOMATICALLY BY TERRAFORM. DO NOT MODIFY THE CONTENT
+
+[server]
+172.27.60.149
+
+[all:vars]
+ansible_user=ubuntu
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'

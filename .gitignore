@@ -1,0 +1,24 @@
+# Local .terraform directory (plugins, modules, cache)
+.terraform/
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Ignore sensitive variables files
+*.tfvars
+*.tfvars.json
+
+# Ignore override files (local overrides)
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# CLI local configuration files
+.terraformrc
+terraform.rc
