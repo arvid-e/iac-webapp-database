@@ -3,9 +3,13 @@ output "public_ip" {
   sensitive=false
 }
 
-output "server_private_ip" {
-  value = openstack_compute_instance_v2.server.access_ip_v4
+output "webapp_private_ip" {
+  value = openstack_compute_instance_v2.webapp.access_ip_v4
   sensitive=false
 }
 
+output "database_private_ip" {
+  value = openstack_compute_instance_v2.database.access_ip_v4
+  sensitive=false
+}
 
