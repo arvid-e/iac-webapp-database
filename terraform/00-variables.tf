@@ -10,6 +10,15 @@ variable "identity_file" {
   default = "Please export an environment variable TF_VAR_identity_file with the path to your key for ansible machine (path of the .pem file)."
 }  
 
+variable "webapp_port" {
+  type    = number
+  default = 8080 
+}
+
+variable "db_port" {
+  type    = number
+  default = 5432
+}
 
 variable "flavor_name" {
   type    = string
