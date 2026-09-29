@@ -31,8 +31,8 @@ resource "openstack_networking_router_interface_v2" "router_interface" {
 }
 
 
-resource "openstack_networking_port_v2" "the_port" {
-  name           = "port_for_the_serverA1"
+resource "openstack_networking_port_v2" "port_webapp" {
+  name           = "port_for_the_webapp"
   network_id     = openstack_networking_network_v2.network.id
   admin_state_up = "true"
 

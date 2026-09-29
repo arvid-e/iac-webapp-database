@@ -11,7 +11,7 @@ variable "identity_file" {
 }  
 
 
-variable "flavor_id" {
+variable "flavor_name" {
   type    = string
   default = "c1-r1-d10"
 }
@@ -22,7 +22,7 @@ variable "subnetwork_cidr" {
   default = "192.168.3.0/24"
 }
 
-variable "server_image_name" {
+variable "webapp_image_name" {
   type    = string
   default = "Ubuntu server 24.04.3 autoupgrade"
 }
