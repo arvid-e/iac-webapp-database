@@ -25,7 +25,7 @@ resource "null_resource" "wait_ssh" {
     triggers = {
     always_run = "${timestamp()}"
   }
-   depends_on = [local_file.ansible_inventory, openstack_compute_instance_v2.server, openstack_networking_router_interface_v2.router_interface]
+   depends_on = [local_file.ansible_inventory, openstack_compute_instance_v2.webapp, openstack_networking_router_interface_v2.router_interface]
 }
 
 
@@ -34,7 +34,8 @@ resource "null_resource" "ansible-deploy" {
   depends_on = [
                  openstack_networking_floatingip_associate_v2.the_fip_association,
                  local_file.ansible_inventory,
-                 openstack_compute_instance_v2.server,
+                 openstack_compute_instance_v2.webapp,
+                 openstack_compute_instance_v2.database,
                  null_resource.wait_ssh
                  ]
 
