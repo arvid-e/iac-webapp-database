@@ -32,7 +32,7 @@ resource "openstack_networking_router_interface_v2" "router_interface" {
 
 
 resource "openstack_networking_port_v2" "port_webapp" {
-  name           = "port_for_the_webapp"
+  name           = "port_webapp"
   network_id     = openstack_networking_network_v2.network.id
   admin_state_up = "true"
 
@@ -40,35 +40,41 @@ resource "openstack_networking_port_v2" "port_webapp" {
   depends_on = [ openstack_networking_subnet_v2.subnet ]
 }
 
+resource "openstack_networking_port_v2" "port_backend" {
+  name           = "port_backend"
+  network_id     = openstack_networking_network_v2.network.id
+  admin_state_up = "true"
+
+  security_group_ids = [openstack_networking_secgroup_v2.ssh.id, openstack_networking_secgroup_v2.application.id]
+  depends_on = [ openstack_networking_subnet_v2.subnet ]
+}
 
 #https://registry.terraform.io/providers/terraform-provider-openstack/openstack/latest/docs/resources/networking_secgroup_v2
-resource "openstack_networking_secgroup_v2" "ssh" {
-  name        = "ssh-A1"
+resource "openstack_networking_secgroup_v2" "sg_webapp" {
+  name        = "sg_webapp"
   description = "SSH sec group for automatic deployment"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "ssh_rules" {
+resource "openstack_networking_secgroup_rule_v2" "webapp_ssh" {
   direction         = "ingress"
   ethertype         = "IPv4"
   protocol          = "tcp"
   port_range_min    = 22
   port_range_max    = 22
   remote_ip_prefix  = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.ssh.id}"
+  security_group_id = openstack_networking_secgroup_v2.webapp.id
 }
 
-
-resource "openstack_networking_secgroup_v2" "application" {
-  name        = "web-generic"
-  description = "web ports sec group for A1"
-}
-
-resource "openstack_networking_secgroup_rule_v2" "web_rules" {
+resource "openstack_networking_secgroup_rule_v2" "webapp_app" {
   direction         = "ingress"
   ethertype         = "IPv4"
   protocol          = "tcp"
-  port_range_min    = 80
-  port_range_max    = 80
+  port_range_min    = var.webapp_port
+  port_range_max    = var.webapp_port
   remote_ip_prefix  = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.application.id}"
+  security_group_id = openstack_networking_secgroup_v2.webapp.id
+}
+
+resource "openstack_networking_secgroup_v2" "database" {
+  name = "sg_database"
 }
