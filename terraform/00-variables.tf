@@ -36,6 +36,10 @@ variable "webapp_image_name" {
   default = "Ubuntu server 24.04.3 autoupgrade"
 }
 
+variable "database_image_name" {
+  type    = string
+  default = "Ubuntu server 24.04.3 autoupgrade"
+}
 
 variable "external_network_used" {
   type    = string
