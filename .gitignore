@@ -10,6 +10,7 @@ crash.log
 crash.*.log
 
 # Ignore sensitive variables files
+*-openrc.sh
 *.tfvars
 *.tfvars.json
 
@@ -22,3 +23,7 @@ override.tf.json
 # CLI local configuration files
 .terraformrc
 terraform.rc
+
+# Key files
+keyfile*
+*.pem
