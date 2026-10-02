@@ -1,7 +1,7 @@
 ---
 
 - name: Configure Database
-  hosts: server
+  hosts: database
   become: true
 
   tasks:
@@ -65,7 +65,7 @@
 
 
 - name: Configure Web Server & Deploy Web Application
-  hosts: server
+  hosts: webapp
   become: true
 
   tasks:
