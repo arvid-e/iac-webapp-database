@@ -1,5 +1,4 @@
 import configparser
-import os
 import psycopg2
 from flask import Flask, render_template
 
@@ -10,6 +9,7 @@ CONFIG_PATH = "/etc/webapp/config.ini"
 config = configparser.ConfigParser()
 config.read(CONFIG_PATH)
 
+WEBAPP_PORT = config.getint("webapp", "port")
 DB_HOST = config.get("database", "host", fallback="no-ip")
 DB_NAME = config.get("database", "name", fallback="wrongappdb")
 DB_USER = config.get("database", "user", fallback="wrongappuser")
@@ -87,4 +87,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    app.run(host="0.0.0.0", port=WEBAPP_PORT)

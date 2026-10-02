@@ -2,7 +2,8 @@
 resource "local_file" "ansible_inventory"{
   content = templatefile("./templates/inventory.tmpl",
   {
-    server_ip = openstack_networking_floatingip_v2.float_ip.address
+    server_ip   = openstack_networking_floatingip_v2.float_ip.address
+    webapp_port = var.webapp_port
   }
   )
   filename = "../ansible/inventory"
