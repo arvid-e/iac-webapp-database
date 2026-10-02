@@ -5,6 +5,7 @@ resource "local_file" "ansible_inventory"{
     server_ip   = openstack_networking_floatingip_v2.float_ip.address
     database_ip = openstack_compute_instance_v2.database.access_ip_v4
     webapp_port = var.webapp_port
+    identity    = abspath(pathexpand(var.identity_file))
   }
   )
   filename = "../ansible/inventory"

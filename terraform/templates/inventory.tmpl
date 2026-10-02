@@ -6,6 +6,9 @@ ${server_ip}
 [database]
 ${database_ip}
 
+[database:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -W %h:%p -q ubuntu@${server_ip} -i ${identity} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"'
+
 [all:vars]
 ansible_user=ubuntu
 webapp_port=${webapp_port}
