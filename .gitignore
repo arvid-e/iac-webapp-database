@@ -27,3 +27,7 @@ terraform.rc
 # Key files
 keyfile*
 *.pem
+
+
+# inventory
+ansible/inventory
