@@ -31,6 +31,28 @@ resource "null_resource" "wait_ssh" {
    depends_on = [local_file.ansible_inventory, openstack_compute_instance_v2.webapp, openstack_networking_router_interface_v2.router_interface]
 }
 
+resource "null_resource" "wait_ssh_database" {
+ 
+  connection {
+    type     = "ssh"
+    user     = "ubuntu"
+    private_key = "${file(var.identity_file)}"
+    host     = openstack_compute_instance_v2.database.access_ip_v4
+
+    bastion_host        = openstack_networking_floatingip_v2.float_ip.address
+    bastion_user        = "ubuntu"
+    bastion_private_key = file(var.identity_file)
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "echo hello from `hostname`"
+    ]
+  }
+    triggers = {
+    always_run = "${timestamp()}"
+  }
+  depends_on = [null_resource.wait_ssh, openstack_compute_instance_v2.database]
+}
 
 resource "null_resource" "ansible-deploy" {
 
@@ -39,7 +61,8 @@ resource "null_resource" "ansible-deploy" {
                  local_file.ansible_inventory,
                  openstack_compute_instance_v2.webapp,
                  openstack_compute_instance_v2.database,
-                 null_resource.wait_ssh
+                 null_resource.wait_ssh,
+                 null_resource.wait_ssh_database
                  ]
 
   triggers = {
